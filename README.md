@@ -1,4 +1,4 @@
-# Bitcoin Ticker 🤑
+# Bitcoin Ticker 
 > A Flutter App offering exchange rate of bitcoin for different currencies at current time.[APK](https://drive.google.com/file/d/1QMc-mEVFIKaUqlz7B9GziN1WSlGfMRhU/view?usp=sharing)
 
 ## Technologies
