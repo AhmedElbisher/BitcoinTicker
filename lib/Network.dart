@@ -8,9 +8,9 @@ const String apiKey = "346C85DC-ED32-475A-B97F-184CEA812C2F";
 class NetworkHelper {
   NetworkHelper();
 
-  Future<dynamic> getdata(String cypto) async {
+  Future<dynamic> getdata(String cypto, String currency) async {
     http.Response response =
-        await http.get("$BASE_URL/$cypto?invert=false&apikey=$apiKey");
+        await http.get("$BASE_URL/$cypto/$currency?apikey=$apiKey");
     print(response.body);
     if (response.statusCode == 200) {
       return jsonDecode(response.body);

@@ -1,4 +1,4 @@
-#Sun Jun 07 07:57:17 EET 2020
+#Sun Jun 07 08:59:55 EET 2020
 base.0=/home/ahmed/Desktop/my githup projects/bitcoin-ticker-flutter/build/app/intermediates/dex/debug/mergeDexDebug/out/classes.dex
 path.0=classes.dex
 renamed.0=classes.dex

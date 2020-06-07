@@ -14,14 +14,22 @@ class PriceScreen extends StatefulWidget {
 class _PriceScreenState extends State<PriceScreen> {
   CoinData coinData = CoinData();
   String currentCurrancy = currenciesList[0];
-  //  NetworkHelper networkHelper = NetworkHelper();
-//  void getTempValue() async {
-//    dynamic jsonData = await networkHelper.getdata("USD");
-//    double temp = jsonData["rate"];
-//    setState(() {
-//      tempvalue = temp.toStringAsFixed(1);
-//    });
-//  }
+  String rate1, rate2, rate3;
+
+  void clearRates() {
+    rate1 = "?";
+    rate2 = "?";
+    rate3 = "?";
+  }
+
+  Future<void> updateRates() async {
+    await coinData.getRates(currentCurrancy);
+    setState(() {
+      rate1 = coinData.getRate(cryptoList[0]);
+      rate2 = coinData.getRate(cryptoList[1]);
+      rate3 = coinData.getRate(cryptoList[2]);
+    });
+  }
 
   Widget AndroidDropdownButtom() {
     List<DropdownMenuItem<String>> dropdownmenuitemsList = [];
@@ -32,10 +40,12 @@ class _PriceScreenState extends State<PriceScreen> {
       ));
     }
     return DropdownButton(
-      onChanged: (value) {
+      onChanged: (value) async {
         setState(() {
           currentCurrancy = value;
+          clearRates();
         });
+        await updateRates();
       },
       value: currentCurrancy,
       items: dropdownmenuitemsList,
@@ -50,10 +60,12 @@ class _PriceScreenState extends State<PriceScreen> {
     return CupertinoPicker(
       itemExtent: 32.0,
       backgroundColor: Colors.lightBlue,
-      onSelectedItemChanged: (itemSelected) {
+      onSelectedItemChanged: (itemSelected) async {
         setState(() {
           currentCurrancy = currenciesList[itemSelected];
+          clearRates();
         });
+        await updateRates();
       },
       children: items,
     );
@@ -62,6 +74,8 @@ class _PriceScreenState extends State<PriceScreen> {
   @override
   void initState() {
     super.initState();
+    clearRates();
+    updateRates();
     //CoinData().getCurrenciesRate();
   }
 
@@ -77,17 +91,17 @@ class _PriceScreenState extends State<PriceScreen> {
         children: <Widget>[
           ReusableCard(
             bitCoin: cryptoList[0],
-            rate: coinData.getBTCRate(currentCurrancy),
+            rate: rate1,
             currency: currentCurrancy,
           ),
           ReusableCard(
             bitCoin: cryptoList[1],
-            rate: coinData.getETCRate(currentCurrancy),
+            rate: rate2,
             currency: currentCurrancy,
           ),
           ReusableCard(
             bitCoin: cryptoList[2],
-            rate: coinData.getLTCRate(currentCurrancy),
+            rate: rate3,
             currency: currentCurrancy,
           ),
           Container(
